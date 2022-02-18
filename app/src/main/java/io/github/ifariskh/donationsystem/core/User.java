@@ -89,7 +89,7 @@ public class User {
         this.dob = dob;
     }
 
-    public void register(String password, Context ctx, TextInputLayout eEmail, TextInputLayout eId) {
+    public void register(String password, Context ctx, TextInputLayout eEmail, TextInputLayout eId, String type) {
         ProgressDialog progressDialog = new ProgressDialog(ctx);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Signing up");
@@ -146,6 +146,7 @@ public class User {
                 map.put("password", password);
                 map.put("phone", phone);
                 map.put("dob", dob);
+                map.put("type", type);
                 return map;
             }
         };

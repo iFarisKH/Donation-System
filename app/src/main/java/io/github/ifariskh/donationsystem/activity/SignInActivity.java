@@ -71,7 +71,6 @@ public class SignInActivity extends AppCompatActivity {
                         try{
                             JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                             String isValid = jObj.getString("msg");
-                            Log.d("TAG", "onResponse: " + isValid);
                            switch (isValid){
                                case "valid":
                                    openNavigationActivity();
@@ -91,7 +90,7 @@ public class SignInActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("SignUp", "Response: " + error.toString());
+                Log.e("SignIn", "Response: " + error.toString());
             }
         }) {
             @Nullable
@@ -108,7 +107,8 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void openNavigationActivity() {
-        Intent intent = new Intent(this, NavigationActivity.class);
+        Intent intent = new Intent(this, OTPActivity.class);
+        intent.putExtra("email", email.getEditText().getText().toString().trim());
         startActivity(intent);
     }
 

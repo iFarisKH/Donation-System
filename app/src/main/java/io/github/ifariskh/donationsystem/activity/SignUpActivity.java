@@ -10,6 +10,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private EditText dob;
     private Button signInBt, singUpBt;
     private User user;
+    private RadioGroup radioGroup;
+    private String type = "Donator";
+    private RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +52,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         dob = findViewById(R.id.dob);
         signInBt = findViewById(R.id.sign_in_button);
         singUpBt = findViewById(R.id.sign_up_button);
+        radioGroup = findViewById(R.id.radio_group);
 
         initCalender();
 
         signInBt.setOnClickListener(this);
         singUpBt.setOnClickListener(this);
+    }
+
+    public void getUserType(View v){
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
+        type = radioButton.getText().toString();
     }
 
     private void initCalender() {
@@ -193,7 +205,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             phone.getEditText().getText().toString().trim(),
                             dob.getText().toString().trim()
                     );
-                    user.register(password.getEditText().getText().toString().trim(), this, email, id);
+                    user.register(password.getEditText().getText().toString().trim(), this, email, id, type);
                 }
                 break;
         }
