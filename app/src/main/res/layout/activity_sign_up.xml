@@ -41,6 +41,36 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
 
+               <RadioGroup
+                   android:id="@+id/radio_group"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent"
+                   android:layout_marginStart="200dp"
+                   android:layout_marginTop="5dp">
+
+                   <RadioButton
+                       android:id="@+id/donator"
+                       android:layout_width="0dp"
+                       android:layout_weight="1"
+                       android:layout_height="wrap_content"
+                       android:checked="true"
+                       android:text="Donator"
+                       android:onClick="getUserType"/>
+
+                   <RadioButton
+                       android:id="@+id/needer"
+                       android:layout_width="0dp"
+                       android:layout_weight="1"
+                       android:layout_height="wrap_content"
+                       android:text="Needer"
+                       android:onClick="getUserType"/>
+
+               </RadioGroup>
+
                <TextView
                    android:id="@+id/sign_up_label"
                    android:layout_width="match_parent"
