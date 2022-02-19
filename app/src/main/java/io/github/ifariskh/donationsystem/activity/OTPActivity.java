@@ -28,8 +28,7 @@ import io.github.ifariskh.donationsystem.helper.Constant;
 
 public class OTPActivity extends AppCompatActivity {
 
-    private String email;
-    private String otp;
+    private String email, otp, msg;
     private EditText otp1, otp2, otp3, otp4;
 
     @Override
@@ -40,6 +39,7 @@ public class OTPActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             email = extras.getString("email");
+            msg = extras.getString("msg");
         }
 
         otp1 = findViewById(R.id.otp1);
@@ -60,9 +60,19 @@ public class OTPActivity extends AppCompatActivity {
                 otp3.getText().toString().trim() +
                 otp4.getText().toString().trim();
 
-        if (inputOTP.equals(otp)){
-            Intent intent = new Intent(this, NavigationActivity.class);
-            startActivity(intent);
+        Intent intent;
+        if (inputOTP.equals(otp)) {
+            switch (msg) {
+                case "login":
+                    intent = new Intent(this, NavigationActivity.class);
+                    startActivity(intent);
+                    break;
+                case "reset":
+                    intent = new Intent(this, ResetPasswordActivity.class);
+                    intent.putExtra("email", email);
+                    startActivity(intent);
+                    break;
+            }
         }
     }
 
@@ -79,7 +89,7 @@ public class OTPActivity extends AppCompatActivity {
                             Log.d("TAG", "onResponse: " + getOTP);
                             if (!getOTP.equalsIgnoreCase("error")) {
                                 otp = getOTP;
-                            }else {
+                            } else {
                                 Toast.makeText(getApplicationContext(), "Error: " + "wrong code", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {

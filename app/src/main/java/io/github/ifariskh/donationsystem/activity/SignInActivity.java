@@ -26,20 +26,21 @@ import java.util.Map;
 import io.github.ifariskh.donationsystem.R;
 import io.github.ifariskh.donationsystem.core.RequestHandler;
 import io.github.ifariskh.donationsystem.helper.Constant;
+import io.github.ifariskh.donationsystem.helper.ResetPasswordDialog;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private Button signUpBt;
-    private Button signInBt;
+    private Button signUpBt, signInBt, forget;
     private TextInputLayout email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin);
+        setContentView(R.layout.activity_sign_in);
 
         signUpBt =  findViewById(R.id.sign_up_button);
         signInBt =  findViewById(R.id.sign_in_button);
+        forget =  findViewById(R.id.forget);
         email =  findViewById(R.id.user);
         password =  findViewById(R.id.password);
 
@@ -50,6 +51,15 @@ public class SignInActivity extends AppCompatActivity {
         signInBt.setOnClickListener(view -> {
             validate();
         });
+
+        forget.setOnClickListener(view -> {
+            openEmailDialog();
+        });
+    }
+
+    private void openEmailDialog(){
+        ResetPasswordDialog resetPasswordDialog =new ResetPasswordDialog();
+        resetPasswordDialog.show(getSupportFragmentManager(), "Reset Password Dialog");
     }
 
     private void validate() {
@@ -109,6 +119,7 @@ public class SignInActivity extends AppCompatActivity {
     private void openNavigationActivity() {
         Intent intent = new Intent(this, OTPActivity.class);
         intent.putExtra("email", email.getEditText().getText().toString().trim());
+        intent.putExtra("msg", "login");
         startActivity(intent);
     }
 
