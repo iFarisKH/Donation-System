@@ -3,25 +3,15 @@ package io.github.ifariskh.donationsystem.core;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
@@ -29,9 +19,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
-import io.github.ifariskh.donationsystem.activity.SignUpActivity;
 import io.github.ifariskh.donationsystem.helper.Constant;
 
 public class User {
@@ -102,10 +90,10 @@ public class User {
                     public void onResponse(String response) {
                         Log.d("SignUp", "Response: " + response);
                         progressDialog.dismiss();
-                        try{
+                        try {
                             JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                             String msg = jObj.getString("msg");
-                            switch (msg){
+                            switch (msg) {
                                 case "Id":
                                     eEmail.setError(null);
                                     eEmail.setErrorEnabled(false);
@@ -125,7 +113,7 @@ public class User {
                                     eId.setErrorEnabled(false);
                                     Toast.makeText(ctx, msg, Toast.LENGTH_LONG).show();
                             }
-                        }catch (JSONException e){
+                        } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(ctx, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }

@@ -31,7 +31,7 @@ public class NavigationActivity extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.home:
                     fragment = new HomeFragment();
                     break;

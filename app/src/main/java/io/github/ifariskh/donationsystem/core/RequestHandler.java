@@ -8,8 +8,8 @@ import com.android.volley.toolbox.Volley;
 
 public class RequestHandler {
     private static RequestHandler instance;
-    private RequestQueue requestQueue;
     private static Context ctx;
+    private RequestQueue requestQueue;
 
     private RequestHandler(Context context) {
         ctx = context;

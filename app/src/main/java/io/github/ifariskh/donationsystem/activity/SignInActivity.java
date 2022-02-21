@@ -38,11 +38,11 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        signUpBt =  findViewById(R.id.sign_up_button);
-        signInBt =  findViewById(R.id.sign_in_button);
-        forget =  findViewById(R.id.forget);
-        email =  findViewById(R.id.user);
-        password =  findViewById(R.id.password);
+        signUpBt = findViewById(R.id.sign_up_button);
+        signInBt = findViewById(R.id.sign_in_button);
+        forget = findViewById(R.id.forget);
+        email = findViewById(R.id.user);
+        password = findViewById(R.id.password);
 
         signUpBt.setOnClickListener(view -> {
             openSignUpActivity();
@@ -57,8 +57,8 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    private void openEmailDialog(){
-        ResetPasswordDialog resetPasswordDialog =new ResetPasswordDialog();
+    private void openEmailDialog() {
+        ResetPasswordDialog resetPasswordDialog = new ResetPasswordDialog();
         resetPasswordDialog.show(getSupportFragmentManager(), "Reset Password Dialog");
     }
 
@@ -78,21 +78,21 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss();
-                        try{
+                        try {
                             JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                             String isValid = jObj.getString("msg");
-                           switch (isValid){
-                               case "valid":
-                                   openNavigationActivity();
-                                   break;
-                               case "invalid":
-                                   Toast.makeText(getApplicationContext(), "Error: " + "wrong sign up information", Toast.LENGTH_LONG).show();
-                                   break;
-                               case "inactive":
-                                   Toast.makeText(getApplicationContext(), "Error: " + "the email hasn't verified", Toast.LENGTH_LONG).show();
-                                   break;
-                           }
-                        }catch (JSONException e){
+                            switch (isValid) {
+                                case "valid":
+                                    openNavigationActivity();
+                                    break;
+                                case "invalid":
+                                    Toast.makeText(getApplicationContext(), "Error: " + "wrong sign up information", Toast.LENGTH_LONG).show();
+                                    break;
+                                case "inactive":
+                                    Toast.makeText(getApplicationContext(), "Error: " + "the email hasn't verified", Toast.LENGTH_LONG).show();
+                                    break;
+                            }
+                        } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }

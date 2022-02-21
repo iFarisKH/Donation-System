@@ -1,13 +1,13 @@
 package io.github.ifariskh.donationsystem.activity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -46,7 +46,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     }
 
     public void update(View view) {
-        if (validatePassword()){
+        if (validatePassword()) {
             StringRequest stringRequest = new StringRequest(
                     Request.Method.POST,
                     Constant.UPDATE_PASSWORD,
@@ -56,15 +56,15 @@ public class ResetPasswordActivity extends AppCompatActivity {
                             try {
                                 JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                                 String getMsg = jObj.getString("msg");
-                               switch (getMsg){
-                                   case "1":
-                                       Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-                                       startActivity(intent);
-                                       break;
-                                   case "0":
-                                       Toast.makeText(getApplicationContext(), "Error: " + "cannot update the password", Toast.LENGTH_LONG).show();
-                                       break;
-                               }
+                                switch (getMsg) {
+                                    case "1":
+                                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                                        startActivity(intent);
+                                        break;
+                                    case "0":
+                                        Toast.makeText(getApplicationContext(), "Error: " + "cannot update the password", Toast.LENGTH_LONG).show();
+                                        break;
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();

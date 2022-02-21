@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:clipToPadding="false"
     android:orientation="vertical"
     android:padding="10dp"
-    android:clipToPadding="false"
     tools:context=".fragment.SearchFragment">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_rec"
-        android:elevation="15dp"
-        android:padding="3dp"
         android:drawableStart="@drawable/ic_search"
-        android:hint="Search"/>
-    
+        android:elevation="15dp"
+        android:hint="Search"
+        android:padding="3dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_view_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

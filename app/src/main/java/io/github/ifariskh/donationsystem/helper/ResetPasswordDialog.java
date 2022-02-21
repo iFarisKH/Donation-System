@@ -69,7 +69,7 @@ public class ResetPasswordDialog extends AppCompatDialogFragment {
     public void onResume() {
         super.onResume();
         final AlertDialog dialog = (AlertDialog) getDialog();
-        if (dialog != null){
+        if (dialog != null) {
             Button positive = (Button) dialog.getButton(Dialog.BUTTON_POSITIVE);
 
             positive.setOnClickListener(new View.OnClickListener() {

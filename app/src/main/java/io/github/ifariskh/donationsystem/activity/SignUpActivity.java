@@ -3,27 +3,18 @@ package io.github.ifariskh.donationsystem.activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
-import java.util.Random;
 import java.util.regex.Pattern;
 
 import io.github.ifariskh.donationsystem.R;
@@ -60,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         singUpBt.setOnClickListener(this);
     }
 
-    public void getUserType(View v){
+    public void getUserType(View v) {
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
         type = radioButton.getText().toString();

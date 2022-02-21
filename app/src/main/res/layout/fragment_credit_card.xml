@@ -6,72 +6,74 @@
     tools:context=".fragment.CreditCardFragment">
 
 
-
     <ImageView
-        android:contentDescription="@null"
         android:layout_width="350dp"
         android:layout_height="240dp"
-        android:paddingVertical="40dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/rec"/>
+        android:contentDescription="@null"
+        android:paddingVertical="40dp"
+        android:src="@drawable/rec" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="50dp"
         android:layout_marginHorizontal="50dp"
+        android:layout_marginVertical="50dp"
         android:text="@string/numOfCards"
-        android:textSize="30sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="110dp"
         android:layout_marginHorizontal="55dp"
+        android:layout_marginVertical="110dp"
         android:text="@string/cardNum"
-        android:textSize="20sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="55dp"
         android:layout_marginVertical="140dp"
-        android:layout_marginHorizontal="55dp"
         android:text="@string/expDate"
-        android:textSize="18sp"
-        android:textColor="@color/white"/>
-    <ImageView
-        android:contentDescription="@null"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginVertical="165dp"
-        android:layout_marginHorizontal="55dp"
-        android:src="@drawable/mastercard"/>
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
     <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginHorizontal="55dp"
+        android:layout_marginVertical="165dp"
         android:contentDescription="@null"
+        android:src="@drawable/mastercard" />
+
+    <ImageView
         android:id="@+id/amount"
         android:layout_width="200dp"
         android:layout_height="210dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_circle"/>
+        android:contentDescription="@null"
+        android:src="@drawable/ic_circle" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginVertical="240dp"
         android:text="@string/statement"
-        android:textSize="20sp"
         android:textColor="@color/gray"
-        android:layout_gravity="center_horizontal"/>
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginVertical="320dp"
         android:text="@string/balance"
-        android:textSize="40sp"
         android:textColor="@color/white"
-        android:layout_gravity="center_horizontal"/>
+        android:textSize="40sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,7 +82,7 @@
         android:layout_marginVertical="370dp"
         android:text="@string/currency"
         android:textColor="@color/white"
-        android:textSize="40sp"/>
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/addWallet"
@@ -88,9 +90,10 @@
         android:layout_height="37dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="455dp"
-        android:textColor="@color/blue"
         android:backgroundTint="@color/white"
-        android:text="@string/addWallet" />
+        android:text="@string/addWallet"
+        android:textColor="@color/blue" />
+
     <Button
         android:id="@+id/addCard"
         android:layout_width="wrap_content"
@@ -98,8 +101,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="495dp"
         android:backgroundTint="@color/white"
-        android:textColor="@color/blue"
-        android:text="@string/addCard" />
+        android:text="@string/addCard"
+        android:textColor="@color/blue" />
 
 
 </FrameLayout>

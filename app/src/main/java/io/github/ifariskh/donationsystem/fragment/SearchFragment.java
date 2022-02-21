@@ -55,8 +55,8 @@ public class SearchFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void testBuild(){
-        for (int i = 1000000000; i <1000000011; i++){
+    private void testBuild() {
+        for (int i = 1000000000; i < 1000000011; i++) {
             list.add(i + "");
         }
     }
