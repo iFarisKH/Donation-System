@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <SwitchPreference
+        android:title="Language"
+        android:switchTextOff="@string/age"
+        android:switchTextOn="AR"
+        android:summary="Choose the language \nbetween EN or AR"
+        app:allowDividerBelow="true"/>
+
+    <Preference
+        android:title="Edit Profile"
+        android:summary="You can here edit your profile"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"/>
+
+    <Preference
+        android:title="View Transaction"
+        android:summary="Here yu will find your previous \ntransaction"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"/>
+
+    <Preference
+        android:title="KYC Validation"
+        android:summary="Here where you validate your\nKYC"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"/>
+
+    <Preference
+        android:title="Contact Us"
+        android:summary="If you need any help"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"/>
+
+    <Preference
+        android:title="About"
+        android:summary="Current version 1.0.0"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"/>
+
+    <Preference
+        android:title="Sign out"
+        app:allowDividerAbove="true"/>
+
+
+
+</androidx.preference.PreferenceScreen>
