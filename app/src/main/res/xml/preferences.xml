@@ -4,46 +4,46 @@
 
 
     <SwitchPreference
-        android:title="Language"
+        android:summary="Choose the language \nbetween EN or AR"
         android:switchTextOff="@string/age"
         android:switchTextOn="AR"
-        android:summary="Choose the language \nbetween EN or AR"
-        app:allowDividerBelow="true"/>
+        android:title="Language"
+        app:allowDividerBelow="true" />
 
     <Preference
-        android:title="Edit Profile"
         android:summary="You can here edit your profile"
+        android:title="Edit Profile"
         app:allowDividerAbove="true"
-        app:allowDividerBelow="true"/>
+        app:allowDividerBelow="true" />
 
     <Preference
-        android:title="View Transaction"
         android:summary="Here yu will find your previous \ntransaction"
+        android:title="View Transaction"
         app:allowDividerAbove="true"
-        app:allowDividerBelow="true"/>
+        app:allowDividerBelow="true" />
 
     <Preference
-        android:title="KYC Validation"
         android:summary="Here where you validate your\nKYC"
+        android:title="KYC Validation"
         app:allowDividerAbove="true"
-        app:allowDividerBelow="true"/>
+        app:allowDividerBelow="true"
+        app:key="kyc" />
 
     <Preference
-        android:title="Contact Us"
         android:summary="If you need any help"
+        android:title="Contact Us"
         app:allowDividerAbove="true"
-        app:allowDividerBelow="true"/>
+        app:allowDividerBelow="true" />
 
     <Preference
-        android:title="About"
         android:summary="Current version 1.0.0"
+        android:title="About"
         app:allowDividerAbove="true"
-        app:allowDividerBelow="true"/>
+        app:allowDividerBelow="true" />
 
     <Preference
         android:title="Sign out"
-        app:allowDividerAbove="true"/>
-
+        app:allowDividerAbove="true" />
 
 
 </androidx.preference.PreferenceScreen>
