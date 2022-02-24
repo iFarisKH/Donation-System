@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Donation System"
 include ':app'
+include ':sdk'
