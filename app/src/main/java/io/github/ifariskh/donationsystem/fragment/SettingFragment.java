@@ -1,16 +1,36 @@
 package io.github.ifariskh.donationsystem.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import io.github.ifariskh.donationsystem.R;
+import io.github.ifariskh.donationsystem.activity.KYCActivity;
+import io.github.ifariskh.donationsystem.activity.SignInActivity;
 
-public class SettingFragment extends PreferenceFragmentCompat {
+public class SettingFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
 
     @Override
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
+
+        Preference kycPreference = findPreference("kyc");
+
+        kycPreference.setOnPreferenceClickListener(this);
+    }
+
+    @Override
+    public boolean onPreferenceClick(@NonNull Preference preference) {
+        switch (preference.getKey()){
+            case "kyc":
+                Intent intent = new Intent(getActivity(), KYCActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return true;
     }
 }
