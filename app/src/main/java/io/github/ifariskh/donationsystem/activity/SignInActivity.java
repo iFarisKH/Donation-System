@@ -32,6 +32,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private Button signUpBt, signInBt, forget;
     private TextInputLayout email, password;
+    public static String ID = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,15 +83,15 @@ public class SignInActivity extends AppCompatActivity {
                             JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                             String isValid = jObj.getString("msg");
                             switch (isValid) {
-                                case "valid":
-                                    openNavigationActivity();
-                                    break;
                                 case "invalid":
                                     Toast.makeText(getApplicationContext(), "Error: " + "wrong sign up information", Toast.LENGTH_LONG).show();
                                     break;
                                 case "inactive":
                                     Toast.makeText(getApplicationContext(), "Error: " + "the email hasn't verified", Toast.LENGTH_LONG).show();
                                     break;
+                                default:
+                                    ID = isValid;
+                                    openNavigationActivity();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

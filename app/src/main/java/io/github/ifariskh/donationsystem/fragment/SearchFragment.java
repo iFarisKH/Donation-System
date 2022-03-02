@@ -19,7 +19,6 @@ public class SearchFragment extends Fragment {
     private ArrayList<String> list = new ArrayList<>();
 
     public SearchFragment() {
-        // Required empty public constructor
     }
 
     public static SearchFragment newInstance() {

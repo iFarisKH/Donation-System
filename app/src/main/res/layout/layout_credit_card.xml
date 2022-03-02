@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/full_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:hint="Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/full_name"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:hint="Number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/month"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/number"
+        android:layout_margin="10dp"
+        android:hint="MM">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="number"
+            android:maxLength="2" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/year"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/number"
+        android:layout_margin="10dp"
+        android:layout_toEndOf="@id/month"
+        android:hint="YYYY">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="number"
+            android:maxLength="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cvc"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/number"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:hint="CVC">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="number"
+            android:maxLength="3" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/month"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Add Card"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</RelativeLayout>
