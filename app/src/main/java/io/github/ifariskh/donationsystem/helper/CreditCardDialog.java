@@ -7,24 +7,38 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 import io.github.ifariskh.donationsystem.R;
+import io.github.ifariskh.donationsystem.activity.SignInActivity;
+import io.github.ifariskh.donationsystem.core.RequestHandler;
 
-public class CreditCardDialog extends AppCompatDialogFragment implements TextWatcher {
+public class CreditCardDialog extends AppCompatDialogFragment implements TextWatcher, View.OnClickListener {
 
     private HashMap<String, String> patternMap = null;
-    private TextInputLayout cardNum;
+    private TextInputLayout cardNum, name, month, year, cvc;
+    private Button add;
 
     private ArrayList<Integer> BIN_LIST = new ArrayList<>(Arrays.asList(
             549760, 417633, 588982, 588845, 588846, 588848,
@@ -57,9 +71,16 @@ public class CreditCardDialog extends AppCompatDialogFragment implements TextWat
         }
 
         cardNum = view.findViewById(R.id.number);
+        name = view.findViewById(R.id.full_name);
+        month = view.findViewById(R.id.month);
+        year = view.findViewById(R.id.year);
+        cvc = view.findViewById(R.id.cvc);
+        add = view.findViewById(R.id.add);
 
         cardNum.getEditText().addTextChangedListener(this);
+        add.setOnClickListener(this);
 
+        Log.d("TAG", "onClick: " + SignInActivity.ID);
         builder.setView(view);
 
         return builder.create();
@@ -72,14 +93,12 @@ public class CreditCardDialog extends AppCompatDialogFragment implements TextWat
     @Override
     public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
         String str = charSequence.toString();
-        Log.d("TAG", "onTextChanged: " + str + " " + count);
 
         if (str.length() >= 6 && BIN_LIST.contains(Integer.parseInt(str.substring(0, 6)))) {
             cardNum.getEditText().setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_mada, 0);
         } else if (str.matches(patternMap.get("VISA"))) {
             cardNum.getEditText().setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visa, 0);
         } else if (str.matches(patternMap.get("MASTERCARD"))) {
-            Log.d("TAG", "onTextChanged: ");
             cardNum.getEditText().setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_mastercard, 0);
         } else {
             cardNum.getEditText().setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -88,5 +107,53 @@ public class CreditCardDialog extends AppCompatDialogFragment implements TextWat
 
     @Override
     public void afterTextChanged(Editable editable) {
+    }
+
+    @Override
+    public void onClick(View view) {
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constant.ADD_CREDIT_CARD,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+                            String isValid = jObj.getString("msg");
+                            switch (isValid) {
+                                case "added":
+                                    Toast.makeText(getContext(), "Success: " + "card added", Toast.LENGTH_LONG).show();
+                                    break;
+                                case "unable":
+                                    Toast.makeText(getContext(), "Error: " + "wrong sign up information", Toast.LENGTH_LONG).show();
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("SignIn", "Response: " + error.toString());
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("number", cardNum.getEditText().getText().toString());
+                map.put("name", name.getEditText().getText().toString());
+                map.put("cvc", cvc.getEditText().getText().toString());
+                map.put("month", month.getEditText().getText().toString());
+                map.put("year", year.getEditText().getText().toString());
+                map.put("id", SignInActivity.ID);
+                return map;
+            }
+        };
+
+        RequestHandler.getInstance(getContext()).addToRequestQueue(stringRequest);
+
     }
 }
