@@ -8,10 +8,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +33,8 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
@@ -35,16 +46,23 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.github.ifariskh.donationsystem.R;
+import io.github.ifariskh.donationsystem.core.RequestHandler;
+import io.github.ifariskh.donationsystem.helper.Constant;
 
 public class KYCActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button uploadFront, uploadBack;
-    private TextInputLayout name, id, dob;
+    private Button uploadFront, uploadBack, confirm;
+    private TextInputLayout name, id, dob, salary, socialStatus;
     private ImageView front, back;
     private Bitmap bitmap;
     private boolean flag;
+    private RadioGroup radioGroup;
+    private String gender = "Male";
+    private RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +71,15 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
 
         uploadFront = findViewById(R.id.upload_front);
         uploadBack = findViewById(R.id.upload_back);
+        uploadBack = findViewById(R.id.confirm);
         front = findViewById(R.id.front_image);
         back = findViewById(R.id.back_image);
         name = findViewById(R.id.full_name);
         id = findViewById(R.id.id);
         dob = findViewById(R.id.dob);
+        salary = findViewById(R.id.salary);
+        socialStatus = findViewById(R.id.ss);
+        radioGroup = findViewById(R.id.radio_group);
 
         uploadFront.setOnClickListener(this);
         uploadBack.setOnClickListener(this);
@@ -74,6 +96,52 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
                 flag = false;
                 startCrop();
                 break;
+            case R.id.confirm:
+                String nameText = name.getEditText().getText().toString().trim();
+                String idText = id.getEditText().getText().toString().trim();
+                String dobText = dob.getEditText().getText().toString().trim();
+                if (!(nameText.isEmpty() && idText.isEmpty() && dobText.isEmpty())) {
+                    StringRequest stringRequest = new StringRequest(
+                            Request.Method.POST,
+                            Constant.KYC,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+                                        String isValid = jObj.getString("valid");
+                                        if (isValid.equals("true")) {
+                                            Toast.makeText(getApplicationContext(), "KYC in process", Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("SignIn", "Response: " + error.toString());
+                        }
+                    }) {
+                        @Nullable
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> map = new HashMap<>();
+                            map.put("name", nameText);
+                            map.put("id", idText);
+                            map.put("dob", dobText);
+                            map.put("salary", salary.getEditText().getText().toString().trim());
+                            map.put("socialStatus", socialStatus.getEditText().getText().toString().trim());
+                            map.put("gender", gender);
+                            return map;
+                        }
+                    };
+
+                    RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+                }
         }
     }
 
@@ -124,8 +192,6 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
         Mat normalize = new Mat();
         Core.normalize(absdiff, normalize, 0, 255, Core.NORM_MINMAX, CvType.CV_8UC1);
 
-//        Mat thresh = new Mat();
-//        Imgproc.threshold(normalize, thresh, 127, 255, Imgproc.THRESH_OTSU);
         Bitmap bitmap = Bitmap.createBitmap(source.width(), source.height(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(normalize, bitmap);
 
@@ -143,13 +209,10 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
                                     result = block.getText();
                                     if (result.contains(",") && Character.isUpperCase(result.charAt(0))) {
                                         name.getEditText().setText(result);
-                                        Log.d("TAG", "onSuccess: " + result);
                                     } else if (result.contains("No:")) {
                                         id.getEditText().setText(result.substring(3));
-                                        Log.d("TAG", "onSuccess: " + result);
                                     } else if (result.contains("DOB:") || result.contains("DO8")) {
                                         dob.getEditText().setText(result.substring(5));
-                                        Log.d("TAG", "onSuccess: " + result);
                                         break;
                                     }
                                 }
@@ -162,6 +225,12 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
 
                                     }
                                 });
+    }
+
+    public void getGender(View v) {
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
+        gender = radioButton.getText().toString();
     }
 
     private BaseLoaderCallback baseLoaderCallback = new BaseLoaderCallback(this) {

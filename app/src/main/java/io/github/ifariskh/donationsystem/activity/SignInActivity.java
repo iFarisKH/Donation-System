@@ -33,6 +33,7 @@ public class SignInActivity extends AppCompatActivity {
     private Button signUpBt, signInBt, forget;
     private TextInputLayout email, password;
     public static String ID = null;
+    public static String TYPE = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,9 @@ public class SignInActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Error: " + "the email hasn't verified", Toast.LENGTH_LONG).show();
                                     break;
                                 default:
-                                    ID = isValid;
+                                    String[] res = isValid.split(" ");
+                                    ID = res[0];
+                                    TYPE = res[1];
                                     openNavigationActivity();
                             }
                         } catch (JSONException e) {
