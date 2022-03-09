@@ -51,7 +51,9 @@ public class SignInActivity extends AppCompatActivity {
         });
 
         signInBt.setOnClickListener(view -> {
-            validate();
+            Intent intent = new Intent(this, NavigationActivity.class);
+            startActivity(intent);
+            //validate();
         });
 
         forget.setOnClickListener(view -> {

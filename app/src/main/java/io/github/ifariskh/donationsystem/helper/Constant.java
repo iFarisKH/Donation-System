@@ -9,6 +9,7 @@ public interface Constant {
     String UPDATE_PASSWORD = "https://ds-dbms.000webhostapp.com/api/UpdatePassword.php";
     String ADD_CREDIT_CARD = "https://ds-dbms.000webhostapp.com/api/AddCreditCard.php";
     String GET_CREDIT_CARD = "https://ds-dbms.000webhostapp.com/api/GetCreditCard.php";
+    String GET_NEEDERS = "https://ds-dbms.000webhostapp.com/api/GetNeeder.php";
     String KYC = "https://ds-dbms.000webhostapp.com/api/ValidateKYC.php";
     String VISA = "^4[0-9]{2,12}(?:[0-9]{3})?$";
     String MASTERCARD = "^5[1-5][0-9]{1,14}$";
