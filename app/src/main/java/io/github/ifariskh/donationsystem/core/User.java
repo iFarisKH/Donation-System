@@ -29,6 +29,10 @@ public class User {
     private String phone;
     private String dob;
 
+    public User(){
+
+    }
+
     public User(String fullName, String email, String id, String phone, String dob) {
         this.fullName = fullName;
         this.email = email;

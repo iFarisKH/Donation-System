@@ -1,22 +1,46 @@
 package io.github.ifariskh.donationsystem.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.github.ifariskh.donationsystem.R;
-import io.github.ifariskh.donationsystem.helper.RecycleAdapter;
+import io.github.ifariskh.donationsystem.activity.SignInActivity;
+import io.github.ifariskh.donationsystem.core.CreditCard;
+import io.github.ifariskh.donationsystem.core.EndUser;
+import io.github.ifariskh.donationsystem.core.RequestHandler;
+import io.github.ifariskh.donationsystem.helper.Constant;
+import io.github.ifariskh.donationsystem.helper.CreditCardAdapter;
+import io.github.ifariskh.donationsystem.helper.SearchAdapter;
 
 public class SearchFragment extends Fragment {
 
-    private ArrayList<String> list = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private SearchAdapter searchAdapter;
+
+    ArrayList<EndUser> endUsersList = new ArrayList<>();
 
     public SearchFragment() {
     }
@@ -44,19 +68,52 @@ public class SearchFragment extends Fragment {
     }
 
     private void initRecycleView(View view) {
-        testBuild();
-        RecyclerView recyclerView = view.findViewById(R.id.recycle_view_search);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView = view.findViewById(R.id.recycle_view_search);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        RecycleAdapter adapter = new RecycleAdapter(list);
-        recyclerView.setAdapter(adapter);
+        loadNeeders();
     }
 
-    private void testBuild() {
-        for (int i = 1000000000; i < 1000000011; i++) {
-            list.add(i + "");
-        }
+    private void loadNeeders() {
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.GET,
+                Constant.GET_NEEDERS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Log.d("TAG", "onResponse: " + response);
+                            if (response.isEmpty()){
+                                return;
+                            }
+                            JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+                            JSONArray creditCards = jsonObject.getJSONArray("needers");
+                            for (int i = 0; i < creditCards.length(); i++) {
+                                JSONObject creditCardObject = creditCards.getJSONObject(i);
+                                String id = creditCardObject.getString("id");
+                                String gender = creditCardObject.getString("gender");
+                                String salary = creditCardObject.getString("salary");
+                                String dob = creditCardObject.getString("dob");
+                                String socialStatus = creditCardObject.getString("socialStatus");
+                                EndUser endUser = new EndUser(id, gender, socialStatus, Double.parseDouble(salary), dob);
+                                endUsersList.add(endUser);
+                            }
+                            searchAdapter = new SearchAdapter(getContext(), endUsersList);
+                            recyclerView.setAdapter(searchAdapter);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("SignIn", "Response: " + error.toString());
+            }
+        }) {
+        };
+
+        RequestHandler.getInstance(getContext()).addToRequestQueue(stringRequest);
     }
+
 }
