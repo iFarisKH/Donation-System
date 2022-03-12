@@ -2,6 +2,7 @@ package io.github.ifariskh.donationsystem.core;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.github.ifariskh.donationsystem.activity.SignInActivity;
 import io.github.ifariskh.donationsystem.helper.Constant;
 
 public class User {
@@ -116,6 +118,7 @@ public class User {
                                     eEmail.setErrorEnabled(false);
                                     eId.setErrorEnabled(false);
                                     Toast.makeText(ctx, msg, Toast.LENGTH_LONG).show();
+                                    ctx.startActivity(new Intent(ctx, SignInActivity.class));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
