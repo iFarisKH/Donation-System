@@ -5,8 +5,10 @@ public class EndUser extends User {
     private String gender;
     private String socialStatus;
     private double salary;
+    public static String KYC = null;
+    public static String ID = null;
 
-    public EndUser(String id,String gender, String socialStatus, double salary, String dob) {
+    public EndUser(String id, String gender, String socialStatus, double salary, String dob) {
         this.gender = gender;
         this.socialStatus = socialStatus;
         this.salary = salary;

@@ -30,7 +30,9 @@ import java.util.Map;
 import io.github.ifariskh.donationsystem.R;
 import io.github.ifariskh.donationsystem.activity.SignInActivity;
 import io.github.ifariskh.donationsystem.core.CreditCard;
+import io.github.ifariskh.donationsystem.core.EndUser;
 import io.github.ifariskh.donationsystem.core.RequestHandler;
+import io.github.ifariskh.donationsystem.core.User;
 import io.github.ifariskh.donationsystem.helper.Constant;
 import io.github.ifariskh.donationsystem.helper.CreditCardAdapter;
 import io.github.ifariskh.donationsystem.helper.CreditCardDialog;
@@ -121,7 +123,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                map.put("id", SignInActivity.ID);
+                map.put("id", EndUser.ID);
                 return map;
             }
         };

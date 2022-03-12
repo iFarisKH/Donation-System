@@ -24,7 +24,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.github.ifariskh.donationsystem.R;
+import io.github.ifariskh.donationsystem.core.EndUser;
 import io.github.ifariskh.donationsystem.core.RequestHandler;
+import io.github.ifariskh.donationsystem.core.User;
 import io.github.ifariskh.donationsystem.helper.Constant;
 import io.github.ifariskh.donationsystem.helper.ResetPasswordDialog;
 
@@ -32,8 +34,6 @@ public class SignInActivity extends AppCompatActivity {
 
     private Button signUpBt, signInBt, forget;
     private TextInputLayout email, password;
-    public static String ID = null;
-    public static String TYPE = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +51,7 @@ public class SignInActivity extends AppCompatActivity {
         });
 
         signInBt.setOnClickListener(view -> {
-            Intent intent = new Intent(this, NavigationActivity.class);
-            startActivity(intent);
-            //validate();
+            validate();
         });
 
         forget.setOnClickListener(view -> {
@@ -94,8 +92,11 @@ public class SignInActivity extends AppCompatActivity {
                                     break;
                                 default:
                                     String[] res = isValid.split(" ");
-                                    ID = res[0];
-                                    TYPE = res[1];
+                                    User.TYPE = res[0];
+                                    if (!User.TYPE.equals("Admin")){
+                                        EndUser.ID = res[1];
+                                        EndUser.KYC = res[2];
+                                    }
                                     openNavigationActivity();
                             }
                         } catch (JSONException e) {

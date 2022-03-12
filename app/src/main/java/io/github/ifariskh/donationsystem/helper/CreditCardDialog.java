@@ -32,6 +32,7 @@ import java.util.Map;
 
 import io.github.ifariskh.donationsystem.R;
 import io.github.ifariskh.donationsystem.activity.SignInActivity;
+import io.github.ifariskh.donationsystem.core.EndUser;
 import io.github.ifariskh.donationsystem.core.RequestHandler;
 
 public class CreditCardDialog extends AppCompatDialogFragment implements TextWatcher, View.OnClickListener {
@@ -80,7 +81,6 @@ public class CreditCardDialog extends AppCompatDialogFragment implements TextWat
         cardNum.getEditText().addTextChangedListener(this);
         add.setOnClickListener(this);
 
-        Log.d("TAG", "onClick: " + SignInActivity.ID);
         builder.setView(view);
 
         return builder.create();
@@ -148,7 +148,7 @@ public class CreditCardDialog extends AppCompatDialogFragment implements TextWat
                 map.put("cvc", cvc.getEditText().getText().toString());
                 map.put("month", month.getEditText().getText().toString());
                 map.put("year", year.getEditText().getText().toString());
-                map.put("id", SignInActivity.ID);
+                map.put("id", EndUser.ID);
                 return map;
             }
         };

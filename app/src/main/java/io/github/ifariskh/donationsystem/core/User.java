@@ -30,8 +30,9 @@ public class User {
     private String id;
     private String phone;
     private String dob;
+    public static String TYPE = null;
 
-    public User(){
+    public User() {
 
     }
 
