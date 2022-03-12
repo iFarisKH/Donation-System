@@ -100,13 +100,19 @@ public class User {
                             JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                             String msg = jObj.getString("msg");
                             switch (msg) {
-                                case "Id":
+                                case "1":
+                                    eEmail.setError(null);
+                                    eEmail.setErrorEnabled(false);
+                                    eId.setErrorEnabled(true);
+                                    eId.setError("Please enter correct ID");
+                                    break;
+                                case "2":
                                     eEmail.setError(null);
                                     eEmail.setErrorEnabled(false);
                                     eId.setErrorEnabled(true);
                                     eId.setError("Id already registered");
                                     break;
-                                case "Email":
+                                case "3":
                                     eId.setError(null);
                                     eId.setErrorEnabled(false);
                                     eEmail.setErrorEnabled(true);
