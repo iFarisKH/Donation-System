@@ -90,6 +90,9 @@ public class SignInActivity extends AppCompatActivity {
                                 case "inactive":
                                     Toast.makeText(getApplicationContext(), "Error: " + "the email hasn't verified", Toast.LENGTH_LONG).show();
                                     break;
+                                case "session":
+                                    Toast.makeText(getApplicationContext(), "Error: " + "another device using this account", Toast.LENGTH_LONG).show();
+                                    break;
                                 default:
                                     String[] res = isValid.split(" ");
                                     User.TYPE = res[0];
