@@ -43,7 +43,8 @@
 
     <Preference
         android:title="Sign out"
-        app:allowDividerAbove="true" />
+        app:allowDividerAbove="true"
+        app:key="sign_out" />
 
 
 </androidx.preference.PreferenceScreen>

@@ -95,9 +95,9 @@ public class SignInActivity extends AppCompatActivity {
                                     break;
                                 default:
                                     String[] res = isValid.split(" ");
-                                    User.TYPE = res[0];
+                                    User.TYPE = res[1];
                                     if (!User.TYPE.equals("Admin")){
-                                        EndUser.ID = res[1];
+                                        EndUser.ID = res[0];
                                         EndUser.KYC = res[2];
                                     }
                                     openNavigationActivity();

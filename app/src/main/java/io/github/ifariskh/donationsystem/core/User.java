@@ -155,4 +155,37 @@ public class User {
 
         RequestHandler.getInstance(ctx).addToRequestQueue(stringRequest);
     }
+
+    public static void logout(Context ctx) {
+        ProgressDialog progressDialog = new ProgressDialog(ctx);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Signing out");
+        progressDialog.show();
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constant.LOGOUT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("TAG", "onResponse: " + response);
+                        progressDialog.dismiss();
+                        ctx.startActivity(new Intent(ctx, SignInActivity.class));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("SignUp", "Response: " + error.toString());
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("id", EndUser.ID);
+                return map;
+            }
+        };
+
+        RequestHandler.getInstance(ctx).addToRequestQueue(stringRequest);
+    }
 }
