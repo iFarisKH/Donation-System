@@ -11,6 +11,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import io.github.ifariskh.donationsystem.R;
 import io.github.ifariskh.donationsystem.activity.KYCActivity;
 import io.github.ifariskh.donationsystem.activity.SignInActivity;
+import io.github.ifariskh.donationsystem.core.EndUser;
 import io.github.ifariskh.donationsystem.core.User;
 
 public class SettingFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
@@ -22,7 +23,9 @@ public class SettingFragment extends PreferenceFragmentCompat implements Prefere
         Preference kyc = findPreference("kyc");
         Preference signOut = findPreference("sign_out");
 
-        kyc.setOnPreferenceClickListener(this);
+        if (EndUser.KYC.equals("No")){
+            kyc.setOnPreferenceClickListener(this);
+        }
         signOut.setOnPreferenceClickListener(this);
     }
 
