@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -40,6 +41,7 @@ import io.github.ifariskh.donationsystem.helper.CreditCardDialog;
 public class CreditCardFragment extends Fragment implements View.OnClickListener {
 
     private Button addCard;
+    private TextView balance;
     private RecyclerView recyclerView;
     private CreditCardAdapter creditCardAdapter;
 
@@ -74,11 +76,48 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
     private void initViews(View view) {
         addCard = view.findViewById(R.id.add_card);
         recyclerView = view.findViewById(R.id.credit_card);
+        balance = view.findViewById(R.id.balance);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         loadCreditCards();
+        getBalance();
+
+    }
+
+    private void getBalance() {
+
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constant.GET_BALANCE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+                            balance.setText(jsonObject.getString("balance"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("SignIn", "Response: " + error.toString());
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("id", EndUser.ID);
+                return map;
+            }
+        };
+
+        RequestHandler.getInstance(getContext()).addToRequestQueue(stringRequest);
 
     }
 
