@@ -18,10 +18,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     private Context context;
     private ArrayList<EndUser> endUsersList;
+    private ItemClickListener itemClickListener;
 
-    public SearchAdapter(Context context, ArrayList<EndUser> endUsersList) {
+    public SearchAdapter(Context context, ArrayList<EndUser> endUsersList, ItemClickListener itemClickListener) {
         this.context = context;
         this.endUsersList = endUsersList;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -41,6 +43,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.salary.setText(String.valueOf(endUser.getSalary()));
         holder.socialStatus.setText(endUser.getSocialStatus());
         holder.age.setText(endUser.getDob());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemClickListener.onItemClick(endUser);
+            }
+        });
     }
 
     @Override
@@ -60,6 +69,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             socialStatus = itemView.findViewById(R.id.ss);
             age = itemView.findViewById(R.id.age);
         }
+
+    }
+
+    public interface ItemClickListener{
+
+        public void onItemClick(EndUser endUser);
 
     }
 }

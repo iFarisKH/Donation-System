@@ -1,5 +1,6 @@
 package io.github.ifariskh.donationsystem.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.github.ifariskh.donationsystem.R;
+import io.github.ifariskh.donationsystem.activity.NeederPaymentActivity;
+import io.github.ifariskh.donationsystem.activity.OTPActivity;
 import io.github.ifariskh.donationsystem.activity.SignInActivity;
 import io.github.ifariskh.donationsystem.core.CreditCard;
 import io.github.ifariskh.donationsystem.core.EndUser;
@@ -35,7 +38,7 @@ import io.github.ifariskh.donationsystem.helper.Constant;
 import io.github.ifariskh.donationsystem.helper.CreditCardAdapter;
 import io.github.ifariskh.donationsystem.helper.SearchAdapter;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements SearchAdapter.ItemClickListener{
 
     private RecyclerView recyclerView;
     private SearchAdapter searchAdapter;
@@ -98,8 +101,7 @@ public class SearchFragment extends Fragment {
                                 EndUser endUser = new EndUser(id, gender, socialStatus, Double.parseDouble(salary), dob);
                                 endUsersList.add(endUser);
                             }
-                            searchAdapter = new SearchAdapter(getContext(), endUsersList);
-                            recyclerView.setAdapter(searchAdapter);
+                            addNedeer();
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -116,4 +118,19 @@ public class SearchFragment extends Fragment {
         RequestHandler.getInstance(getContext()).addToRequestQueue(stringRequest);
     }
 
+    private void addNedeer(){
+        searchAdapter = new SearchAdapter(getContext(), endUsersList, this);
+        recyclerView.setAdapter(searchAdapter);
+    }
+
+    @Override
+    public void onItemClick(EndUser endUser) {
+        Intent intent = new Intent(getContext(), NeederPaymentActivity.class);
+        intent.putExtra("id", endUser.getId());
+        intent.putExtra("gender", endUser.getGender());
+        intent.putExtra("socialStatus", endUser.getSocialStatus());
+        intent.putExtra("salary", endUser.getSalary() + "");
+        intent.putExtra("age", endUser.getDob());
+        startActivity(intent);
+    }
 }
