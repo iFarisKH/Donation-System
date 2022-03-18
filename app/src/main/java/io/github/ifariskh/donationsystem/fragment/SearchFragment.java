@@ -85,7 +85,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.ItemClickL
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Log.d("TAG", "onResponse: " + response);
                             if (response.isEmpty()){
                                 return;
                             }

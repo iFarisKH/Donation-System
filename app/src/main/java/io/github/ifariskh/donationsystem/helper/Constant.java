@@ -13,6 +13,7 @@ public interface Constant {
     String GET_NEEDERS = "https://ds-dbms.000webhostapp.com/api/GetNeeder.php";
     String KYC = "https://ds-dbms.000webhostapp.com/api/ValidateKYC.php";
     String GET_BALANCE = "https://ds-dbms.000webhostapp.com/api/GetBalance.php";
+    String PAY = "https://ds-dbms.000webhostapp.com/api/Pay.php";
     String VISA = "^4[0-9]{2,12}(?:[0-9]{3})?$";
     String MASTERCARD = "^5[1-5][0-9]{1,14}$";
 
