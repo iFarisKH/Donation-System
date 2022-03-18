@@ -10,7 +10,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import io.github.ifariskh.donationsystem.R;
 import io.github.ifariskh.donationsystem.activity.KYCActivity;
-import io.github.ifariskh.donationsystem.activity.SignInActivity;
+import io.github.ifariskh.donationsystem.activity.TransacitonActivity;
 import io.github.ifariskh.donationsystem.core.EndUser;
 import io.github.ifariskh.donationsystem.core.User;
 
@@ -22,22 +22,29 @@ public class SettingFragment extends PreferenceFragmentCompat implements Prefere
 
         Preference kyc = findPreference("kyc");
         Preference signOut = findPreference("sign_out");
+        Preference transaction = findPreference("transaction");
 
-        if (EndUser.KYC.equals("No")){
+        if (EndUser.KYC.equals("No")) {
             kyc.setOnPreferenceClickListener(this);
         }
         signOut.setOnPreferenceClickListener(this);
+        transaction.setOnPreferenceClickListener(this);
     }
 
     @Override
     public boolean onPreferenceClick(@NonNull Preference preference) {
-        switch (preference.getKey()){
+        Intent intent;
+        switch (preference.getKey()) {
             case "kyc":
-                Intent intent = new Intent(getActivity(), KYCActivity.class);
+                intent = new Intent(getActivity(), KYCActivity.class);
                 startActivity(intent);
                 break;
             case "sign_out":
                 User.logout(getContext());
+                break;
+            case "transaction":
+                intent = new Intent(getActivity(), TransacitonActivity.class);
+                startActivity(intent);
                 break;
         }
         return true;

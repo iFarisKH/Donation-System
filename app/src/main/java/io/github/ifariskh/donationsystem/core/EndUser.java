@@ -5,7 +5,7 @@ public class EndUser extends User {
     private String gender;
     private String socialStatus;
     private double salary;
-    public static String KYC = null;
+    public static String KYC = "No";
     public static String ID = null;
 
     public EndUser(String id, String gender, String socialStatus, double salary, String dob) {

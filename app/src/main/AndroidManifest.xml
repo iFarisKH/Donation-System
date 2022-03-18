@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DonationSystem">
         <activity
+            android:name=".activity.TransacitonActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.NeederPaymentActivity"
             android:exported="false" />
         <activity

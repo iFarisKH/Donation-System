@@ -17,10 +17,11 @@
         app:allowDividerBelow="true" />
 
     <Preference
-        android:summary="Here yu will find your previous \ntransaction"
+        android:summary="Here you will find your previous \ntransaction"
         android:title="View Transaction"
         app:allowDividerAbove="true"
-        app:allowDividerBelow="true" />
+        app:allowDividerBelow="true"
+        app:key="transaction" />
 
     <Preference
         android:summary="Here where you validate your\nKYC"
