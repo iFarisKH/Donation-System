@@ -2,8 +2,11 @@ package io.github.ifariskh.donationsystem.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,11 +48,13 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import io.github.ifariskh.donationsystem.R;
+import io.github.ifariskh.donationsystem.core.EndUser;
 import io.github.ifariskh.donationsystem.core.RequestHandler;
 import io.github.ifariskh.donationsystem.helper.Constant;
 
@@ -58,7 +63,7 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
     private Button uploadFront, uploadBack, confirm;
     private TextInputLayout name, id, dob, salary, socialStatus;
     private ImageView front, back;
-    private Bitmap bitmap;
+    private Bitmap bitmap, tempBitmap;
     private boolean flag;
     private RadioGroup radioGroup;
     private String gender = "Male";
@@ -71,7 +76,7 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
 
         uploadFront = findViewById(R.id.upload_front);
         uploadBack = findViewById(R.id.upload_back);
-        uploadBack = findViewById(R.id.confirm);
+        confirm = findViewById(R.id.confirm);
         front = findViewById(R.id.front_image);
         back = findViewById(R.id.back_image);
         name = findViewById(R.id.full_name);
@@ -83,6 +88,7 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
 
         uploadFront.setOnClickListener(this);
         uploadBack.setOnClickListener(this);
+        confirm.setOnClickListener(this);
     }
 
     @Override
@@ -112,8 +118,7 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
                                         String isValid = jObj.getString("valid");
                                         if (isValid.equals("true")) {
                                             Toast.makeText(getApplicationContext(), "KYC in process", Toast.LENGTH_LONG).show();
-                                            Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
-                                            startActivity(intent);
+                                            upload();
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -130,9 +135,7 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Map<String, String> map = new HashMap<>();
-                            map.put("name", nameText);
                             map.put("id", idText);
-                            map.put("dob", dobText);
                             map.put("salary", salary.getEditText().getText().toString().trim());
                             map.put("socialStatus", socialStatus.getEditText().getText().toString().trim());
                             map.put("gender", gender);
@@ -143,6 +146,54 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
                     RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
                 }
         }
+    }
+
+
+    private void upload() {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        tempBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String ImageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constant.UPLOAD,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("TAG", "onResponse: " + response);
+                        try {
+                            JSONObject jObj = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+                            String isValid = jObj.getString("valid");
+                            if (isValid.equals("true")) {
+                                Toast.makeText(getApplicationContext(), "Information uploaded", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
+                                startActivity(intent);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("SignIn", "Response: " + error.toString());
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("name", name.getEditText().getText().toString().trim());
+                map.put("id", EndUser.ID);
+                map.put("dob", dob.getEditText().getText().toString().trim());
+                map.put("image", ImageString);
+                return map;
+            }
+        };
+
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+
     }
 
     private void startCrop() {
@@ -158,6 +209,7 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 try {
+                    tempBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
                     if (flag) {
                         front.setImageBitmap(bitmap);

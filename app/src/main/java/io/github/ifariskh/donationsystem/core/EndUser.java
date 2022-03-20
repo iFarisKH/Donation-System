@@ -16,6 +16,13 @@ public class EndUser extends User {
         this.setId(id);
     }
 
+    public EndUser(String id, String name, String dob){
+        super();
+        this.setId(id);
+        this.setFullName(name);
+        this.setDob(dob);
+    }
+
     public String getGender() {
         return gender;
     }

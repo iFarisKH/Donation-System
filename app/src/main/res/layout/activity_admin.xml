@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="10dp"
     tools:context=".activity.AdminActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_view_admin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
