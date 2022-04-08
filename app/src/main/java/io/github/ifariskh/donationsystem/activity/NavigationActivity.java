@@ -6,16 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import io.github.ifariskh.donationsystem.R;
 import io.github.ifariskh.donationsystem.fragment.CreditCardFragment;
 import io.github.ifariskh.donationsystem.fragment.HomeFragment;
 import io.github.ifariskh.donationsystem.fragment.SearchFragment;
 import io.github.ifariskh.donationsystem.fragment.SettingFragment;
+import io.github.ifariskh.donationsystem.helper.QuickPayDialog;
+import io.github.ifariskh.donationsystem.helper.ResetPasswordDialog;
 
 public class NavigationActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,7 @@ public class NavigationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navigation);
 
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
+        floatingActionButton = findViewById(R.id.quick_pay);
 
         bottomNavigationView.setBackground(null);
 
@@ -49,6 +54,11 @@ public class NavigationActivity extends AppCompatActivity {
                     fragment).commit();
 
             return true;
+        });
+
+        floatingActionButton.setOnClickListener(view -> {
+            QuickPayDialog quickPayDialog = new QuickPayDialog();
+            quickPayDialog.show(getSupportFragmentManager(), "Quick Pay Dialog");
         });
     }
 

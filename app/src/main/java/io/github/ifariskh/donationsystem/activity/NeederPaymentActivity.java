@@ -106,6 +106,7 @@ public class NeederPaymentActivity extends AppCompatActivity implements View.OnC
                         map.put("donator", EndUser.ID);
                         map.put("needer", id.getText().toString());
                         map.put("amount", amount.getEditText().getText().toString());
+                        map.put("type", "search");
                         return map;
                     }
                 };

@@ -106,6 +106,7 @@ public class SignInActivity extends AppCompatActivity {
                                     if (!User.TYPE.equals("Admin")){
                                         EndUser.ID = res[0];
                                         EndUser.KYC = res[2];
+                                        EndUser.Name = res[3];
                                     }
                                     openNavigationActivity();
                             }
