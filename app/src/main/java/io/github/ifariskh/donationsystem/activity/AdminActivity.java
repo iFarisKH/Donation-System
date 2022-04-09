@@ -29,16 +29,17 @@ import io.github.ifariskh.donationsystem.helper.TransacitonAdapter;
 
 public class AdminActivity extends AppCompatActivity {
 
+    // Define global variable
     private RecyclerView recyclerView;
     private AdminAdapter adminAdapter;
-
-    ArrayList<EndUser> endUsersList = new ArrayList<>();
+    private ArrayList<EndUser> endUsersList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+        // Init variables
         recyclerView = findViewById(R.id.recycle_view_admin);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
@@ -54,10 +55,12 @@ public class AdminActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            // Logging for debugging
                             Log.d("TAG", "onResponse: " + response);
                             if (response.isEmpty()) {
                                 return;
                             }
+                            // Substring JSON object
                             JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                             JSONArray transactions = jsonObject.getJSONArray("kyc");
                             Log.d("TAG", "onResponse: " + transactions.length());
@@ -69,6 +72,7 @@ public class AdminActivity extends AppCompatActivity {
                                 EndUser endUser = new EndUser(id, name, dob);
                                 endUsersList.add(endUser);
                             }
+                            // Init Adapter
                             adminAdapter = new AdminAdapter(endUsersList);
                             recyclerView.setAdapter(adminAdapter);
                         } catch (JSONException e) {
@@ -79,7 +83,7 @@ public class AdminActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("SignIn", "Response: " + error.toString());
+                Log.e("AdminActivity", "Response: " + error.toString());
             }
         }) {
         };

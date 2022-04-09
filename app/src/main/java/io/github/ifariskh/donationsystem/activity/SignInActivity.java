@@ -32,6 +32,7 @@ import io.github.ifariskh.donationsystem.helper.ResetPasswordDialog;
 
 public class SignInActivity extends AppCompatActivity {
 
+    // Define global variables
     private Button signUpBt, signInBt, forget;
     private TextInputLayout email, password;
 
@@ -60,8 +61,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void openEmailDialog() {
-        ResetPasswordDialog resetPasswordDialog = new ResetPasswordDialog();
-        resetPasswordDialog.show(getSupportFragmentManager(), "Reset Password Dialog");
+        new ResetPasswordDialog().show(getSupportFragmentManager(), "Reset Password Dialog");
     }
 
     private void validate() {
@@ -73,6 +73,7 @@ public class SignInActivity extends AppCompatActivity {
         progressDialog.setMessage("Signing in");
         progressDialog.show();
 
+        // Admin sign in
         if (tEmail.matches("[0-9]+") && tPassword.equals("Admin") && tEmail.length() == 7){
             progressDialog.dismiss();
             Intent intent = new Intent(this, AdminActivity.class);

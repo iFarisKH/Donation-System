@@ -174,7 +174,7 @@ public class User {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("SignUp", "Response: " + error.toString());
+                Log.e("Logout", "Response: " + error.toString());
             }
         }) {
             @Nullable

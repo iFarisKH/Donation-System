@@ -22,6 +22,7 @@ import io.github.ifariskh.donationsystem.core.User;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
+    // Define global
     private TextInputLayout fullName, email, id, password, phone;
     private EditText dob;
     private Button signInBt, singUpBt;
@@ -47,8 +48,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         initCalender();
 
-        signInBt.setOnClickListener(this);
-        singUpBt.setOnClickListener(this);
+        signInBt.setOnClickListener(this::onClick);
+        singUpBt.setOnClickListener(this::onClick);
     }
 
     public void getUserType(View v) {

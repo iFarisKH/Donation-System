@@ -27,8 +27,9 @@ import io.github.ifariskh.donationsystem.R;
 import io.github.ifariskh.donationsystem.core.RequestHandler;
 import io.github.ifariskh.donationsystem.helper.Constant;
 
-public class ResetPasswordActivity extends AppCompatActivity {
+public class ResetPasswordActivity extends AppCompatActivity{
 
+    // Define global variable
     private TextInputLayout password;
     private String email;
 
@@ -37,6 +38,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
+        // Get the extra from bundle
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             email = extras.getString("email");
@@ -91,6 +93,9 @@ public class ResetPasswordActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
+        /*
+            This function validate the new password
+         */
         String val = password.getEditText().getText().toString().trim();
         password.setErrorEnabled(true);
         if (val.isEmpty()) {

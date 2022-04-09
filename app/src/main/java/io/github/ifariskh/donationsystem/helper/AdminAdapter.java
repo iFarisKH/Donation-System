@@ -17,6 +17,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHol
 
     private ArrayList<EndUser> endUsersList;
 
+    // Constructor
     public AdminAdapter(ArrayList<EndUser> endUsersList) {
         this.endUsersList = endUsersList;
     }
