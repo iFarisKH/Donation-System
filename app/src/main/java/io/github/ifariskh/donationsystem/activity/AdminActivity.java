@@ -62,13 +62,13 @@ public class AdminActivity extends AppCompatActivity {
                             }
                             // Substring JSON object
                             JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
-                            JSONArray transactions = jsonObject.getJSONArray("kyc");
-                            Log.d("TAG", "onResponse: " + transactions.length());
-                            for (int i = 0; i < transactions.length(); i++) {
-                                JSONObject transaction = transactions.getJSONObject(i);
-                                String id = transaction.getString("id");
-                                String name = transaction.getString("name");
-                                String dob = transaction.getString("dob");
+                            JSONArray endUsersKYC = jsonObject.getJSONArray("kyc");
+                            Log.d("TAG", "onResponse: " + endUsersKYC.length());
+                            for (int i = 0; i < endUsersKYC.length(); i++) {
+                                JSONObject endUserKYC = endUsersKYC.getJSONObject(i);
+                                String id = endUserKYC.getString("id");
+                                String name = endUserKYC.getString("name");
+                                String dob = endUserKYC.getString("dob");
                                 EndUser endUser = new EndUser(id, name, dob);
                                 endUsersList.add(endUser);
                             }
