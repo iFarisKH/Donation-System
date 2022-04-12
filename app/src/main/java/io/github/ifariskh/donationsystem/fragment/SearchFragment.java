@@ -58,8 +58,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.ItemClickL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -118,7 +116,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.ItemClickL
     }
 
     private void addNedeer(){
-        searchAdapter = new SearchAdapter(getContext(), endUsersList, this);
+        searchAdapter = new SearchAdapter(getContext(), endUsersList, this::onItemClick);
         recyclerView.setAdapter(searchAdapter);
     }
 

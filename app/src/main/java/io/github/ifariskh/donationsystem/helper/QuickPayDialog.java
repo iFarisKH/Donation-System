@@ -44,7 +44,7 @@ public class QuickPayDialog extends AppCompatDialogFragment {
         amount = view.findViewById(R.id.amount);
 
         builder.setView(view)
-                .setTitle("Reset Password")
+                .setTitle("Distributed Pay")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -66,6 +66,7 @@ public class QuickPayDialog extends AppCompatDialogFragment {
                                             String isValid = jObj.getString("msg");
                                             switch (isValid) {
                                                 case "success":
+                                                    // TODO toast
                                                     break;
 
                                             }
@@ -76,7 +77,7 @@ public class QuickPayDialog extends AppCompatDialogFragment {
                                 }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e("SignIn", "Response: " + error.toString());
+                                Log.e("Quick pay", "Response: " + error.toString());
                             }
                         }) {
                             @Nullable

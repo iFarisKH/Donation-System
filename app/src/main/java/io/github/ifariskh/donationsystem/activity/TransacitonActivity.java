@@ -32,6 +32,7 @@ import io.github.ifariskh.donationsystem.helper.TransacitonAdapter;
 
 public class TransacitonActivity extends AppCompatActivity {
 
+    // Define global variable
     private RecyclerView recyclerView;
     private TransacitonAdapter transacitonAdapter;
 
@@ -82,7 +83,7 @@ public class TransacitonActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("SignIn", "Response: " + error.toString());
+                Log.e("Transaction Activity", "Response: " + error.toString());
             }
         }) {
             @Nullable
@@ -93,7 +94,6 @@ public class TransacitonActivity extends AppCompatActivity {
                 return map;
             }
         };
-
         RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 }

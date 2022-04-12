@@ -60,8 +60,6 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -105,7 +103,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("SignIn", "Response: " + error.toString());
+                Log.e("Credit card fragment", "Response: " + error.toString());
             }
         }) {
             @Nullable
@@ -155,7 +153,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("SignIn", "Response: " + error.toString());
+                Log.e("Credit card fragment", "Response: " + error.toString());
             }
         }) {
             @Nullable
@@ -168,7 +166,6 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         };
 
         RequestHandler.getInstance(getContext()).addToRequestQueue(stringRequest);
-
     }
 
     @Override

@@ -28,6 +28,7 @@ import io.github.ifariskh.donationsystem.helper.Constant;
 
 public class OTPActivity extends AppCompatActivity {
 
+    // Define global variables
     private String email, otp, msg;
     private EditText otp1, otp2, otp3, otp4;
 

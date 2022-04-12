@@ -65,10 +65,10 @@ public class AdminActivity extends AppCompatActivity {
                             JSONArray transactions = jsonObject.getJSONArray("kyc");
                             Log.d("TAG", "onResponse: " + transactions.length());
                             for (int i = 0; i < transactions.length(); i++) {
-                                JSONObject creditCardObject = transactions.getJSONObject(i);
-                                String id = creditCardObject.getString("id");
-                                String name = creditCardObject.getString("name");
-                                String dob = creditCardObject.getString("dob");
+                                JSONObject transaction = transactions.getJSONObject(i);
+                                String id = transaction.getString("id");
+                                String name = transaction.getString("name");
+                                String dob = transaction.getString("dob");
                                 EndUser endUser = new EndUser(id, name, dob);
                                 endUsersList.add(endUser);
                             }

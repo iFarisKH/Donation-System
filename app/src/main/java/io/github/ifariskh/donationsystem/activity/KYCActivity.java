@@ -2,8 +2,6 @@ package io.github.ifariskh.donationsystem.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -60,11 +58,11 @@ import io.github.ifariskh.donationsystem.helper.Constant;
 
 public class KYCActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button uploadFront, uploadBack, confirm;
+    // Define globals variable
+    private Button uploadFront, confirm;
     private TextInputLayout name, id, dob, salary, socialStatus;
-    private ImageView front, back;
+    private ImageView front;
     private Bitmap bitmap, tempBitmap;
-    private boolean flag;
     private RadioGroup radioGroup;
     private String gender = "Male";
     private RadioButton radioButton;
@@ -75,10 +73,8 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_kyc);
 
         uploadFront = findViewById(R.id.upload_front);
-        uploadBack = findViewById(R.id.upload_back);
         confirm = findViewById(R.id.confirm);
         front = findViewById(R.id.front_image);
-        back = findViewById(R.id.back_image);
         name = findViewById(R.id.full_name);
         id = findViewById(R.id.id);
         dob = findViewById(R.id.dob);
@@ -87,7 +83,6 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
         radioGroup = findViewById(R.id.radio_group);
 
         uploadFront.setOnClickListener(this);
-        uploadBack.setOnClickListener(this);
         confirm.setOnClickListener(this);
     }
 
@@ -95,11 +90,6 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.upload_front:
-                flag = true;
-                startCrop();
-                break;
-            case R.id.upload_back:
-                flag = false;
                 startCrop();
                 break;
             case R.id.confirm:
@@ -211,12 +201,8 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
                 try {
                     tempBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
-                    if (flag) {
-                        front.setImageBitmap(bitmap);
-                        getData();
-                    } else {
-                        back.setImageBitmap(bitmap);
-                    }
+                    front.setImageBitmap(bitmap);
+                    getData();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -260,11 +246,11 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
                                 for (Text.TextBlock block : visionText.getTextBlocks()) {
                                     result = block.getText();
                                     if (result.contains(",") && Character.isUpperCase(result.charAt(0))) {
-                                        name.getEditText().setText(result);
+                                        name.getEditText().setText(result.trim());
                                     } else if (result.contains("No:")) {
-                                        id.getEditText().setText(result.substring(3));
+                                        id.getEditText().setText(result.substring(3).trim());
                                     } else if (result.contains("DOB:") || result.contains("DO8")) {
-                                        dob.getEditText().setText(result.substring(5));
+                                        dob.getEditText().setText(result.substring(5).trim());
                                         break;
                                     }
                                 }
@@ -274,7 +260,7 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
                                 new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-
+                                        Log.d("TAG", "onFailure: failed to process image");
                                     }
                                 });
     }

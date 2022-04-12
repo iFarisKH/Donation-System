@@ -125,7 +125,7 @@ public class CreditCardDialog extends AppCompatDialogFragment implements TextWat
                                     Toast.makeText(getContext(), "Success: " + "card added", Toast.LENGTH_LONG).show();
                                     break;
                                 case "unable":
-                                    Toast.makeText(getContext(), "Error: " + "wrong sign up information", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), "Error: " + "unable to add the card", Toast.LENGTH_LONG).show();
                                     break;
                             }
                         } catch (JSONException e) {
@@ -136,7 +136,7 @@ public class CreditCardDialog extends AppCompatDialogFragment implements TextWat
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("SignIn", "Response: " + error.toString());
+                Log.e("Credit card dialog", "Response: " + error.toString());
             }
         }) {
             @Nullable

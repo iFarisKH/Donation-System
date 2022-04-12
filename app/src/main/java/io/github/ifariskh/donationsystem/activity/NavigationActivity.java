@@ -18,6 +18,7 @@ import io.github.ifariskh.donationsystem.helper.ResetPasswordDialog;
 
 public class NavigationActivity extends AppCompatActivity {
 
+    // Define global variable
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton floatingActionButton;
 
@@ -57,8 +58,7 @@ public class NavigationActivity extends AppCompatActivity {
         });
 
         floatingActionButton.setOnClickListener(view -> {
-            QuickPayDialog quickPayDialog = new QuickPayDialog();
-            quickPayDialog.show(getSupportFragmentManager(), "Quick Pay Dialog");
+            new QuickPayDialog().show(getSupportFragmentManager(), "Quick Pay Dialog");
         });
     }
 

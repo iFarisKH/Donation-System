@@ -25,18 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
-    <Button
-        android:id="@+id/upload_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/blue"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Upload Back "
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
     <ImageView
         android:id="@+id/back_image"
         android:layout_width="wrap_content"

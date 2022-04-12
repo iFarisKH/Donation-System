@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment {
 
     public HomeFragment() {
     }
+
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -50,8 +51,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -98,7 +97,7 @@ public class HomeFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("SignIn", "Response: " + error.toString());
+                Log.e("Home Fragment", "Response: " + error.toString());
             }
         }) {
             @Nullable

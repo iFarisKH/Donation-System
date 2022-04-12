@@ -1,6 +1,7 @@
 package io.github.ifariskh.donationsystem.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +34,7 @@ import io.github.ifariskh.donationsystem.helper.Constant;
 
 public class NeederPaymentActivity extends AppCompatActivity implements View.OnClickListener {
 
+    // Define global variables
     TextView id, gender, socialStatus, salary, age;
     TextInputLayout amount;
     Button pay, cancel;
@@ -59,9 +61,8 @@ public class NeederPaymentActivity extends AppCompatActivity implements View.OnC
             salary.setText(extras.getString("salary"));
             age.setText(extras.getString("age"));
         }
-        Log.d("TAG", "onCreate: " + EndUser.ID);
-        pay.setOnClickListener(this);
-        cancel.setOnClickListener(this);
+        pay.setOnClickListener(this::onClick);
+        cancel.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -96,7 +97,7 @@ public class NeederPaymentActivity extends AppCompatActivity implements View.OnC
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("SignIn", "Response: " + error.toString());
+                        Log.e("Needer Payment Activity", "Response: " + error.toString());
                     }
                 }) {
                     @Nullable
@@ -114,6 +115,8 @@ public class NeederPaymentActivity extends AppCompatActivity implements View.OnC
                 RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
                 break;
             case R.id.cancel:
+                Intent intent = new Intent(this, NavigationActivity.class);
+                startActivity(intent);
                 break;
         }
     }
