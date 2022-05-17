@@ -125,7 +125,7 @@ public class KYCActivity extends AppCompatActivity implements View.OnClickListen
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Map<String, String> map = new HashMap<>();
-                            map.put("id", idText);
+                            map.put("id", EndUser.ID);
                             map.put("salary", salary.getEditText().getText().toString().trim());
                             map.put("socialStatus", socialStatus.getEditText().getText().toString().trim());
                             map.put("gender", gender);

@@ -122,6 +122,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.ItemClickL
 
     @Override
     public void onItemClick(EndUser endUser) {
+        if (EndUser.TYPE.equalsIgnoreCase("Needer")) return;
         Intent intent = new Intent(getContext(), NeederPaymentActivity.class);
         intent.putExtra("id", endUser.getId());
         intent.putExtra("gender", endUser.getGender());

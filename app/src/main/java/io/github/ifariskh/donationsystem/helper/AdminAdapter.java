@@ -1,8 +1,11 @@
 package io.github.ifariskh.donationsystem.helper;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,15 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import io.github.ifariskh.donationsystem.R;
+import io.github.ifariskh.donationsystem.core.Admin;
 import io.github.ifariskh.donationsystem.core.EndUser;
 
 public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHolder> {
 
     private ArrayList<EndUser> endUsersList;
+    private Context ctx;
 
     // Constructor
-    public AdminAdapter(ArrayList<EndUser> endUsersList) {
+    public AdminAdapter(ArrayList<EndUser> endUsersList, Context ctx) {
         this.endUsersList = endUsersList;
+        this.ctx = ctx;
     }
 
     @NonNull
@@ -37,6 +43,9 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHol
         holder.name.setText("Name: " + endUser.getFullName());
         holder.dob.setText("DOB: " + endUser.getDob());
         holder.link.setText(Constant.BASE_URL + "/api/images/" + endUser.getId() + ".JPEG");
+        holder.approve.setOnClickListener(view -> {
+            new Admin().validate(endUser, this.ctx);
+        });
     }
 
     @Override
@@ -47,6 +56,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHol
     class AdminViewHolder extends RecyclerView.ViewHolder {
 
         TextView id, name, dob, link;
+        Button approve;
 
         public AdminViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -55,6 +65,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHol
             name = itemView.findViewById(R.id.name);
             dob = itemView.findViewById(R.id.dob);
             link = itemView.findViewById(R.id.link);
+            approve = itemView.findViewById(R.id.approve);
 
         }
     }

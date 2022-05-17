@@ -1,6 +1,6 @@
 package io.github.ifariskh.donationsystem.core;
 
-public class CreditCard {
+public class CreditCard implements IPayment{
 
     private String number;
     private String cvc;
@@ -44,5 +44,10 @@ public class CreditCard {
 
     public void setExpireDate(String expireDate) {
         this.expireDate = expireDate;
+    }
+
+    @Override
+    public boolean pay() {
+        return false;
     }
 }

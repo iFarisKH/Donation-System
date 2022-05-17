@@ -3,6 +3,7 @@ package io.github.ifariskh.donationsystem.activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -54,7 +55,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     public void getUserType(View v) {
         int radioId = radioGroup.getCheckedRadioButtonId();
+        Log.d("TAG", "getUserType: " + radioId);
         radioButton = findViewById(radioId);
+        Log.d("TAG", "getUserType: " + radioButton.getText().toString());
         type = radioButton.getText().toString();
     }
 

@@ -64,14 +64,14 @@ public class TransacitonActivity extends AppCompatActivity {
                             JSONArray transactions = jsonObject.getJSONArray("transactions");
                             Log.d("TAG", "onResponse: " + transactions.length());
                             for (int i = 0; i < transactions.length(); i++) {
-                                JSONObject creditCardObject = transactions.getJSONObject(i);
-                                String id = creditCardObject.getString("id");
-                                String date = creditCardObject.getString("date");
-                                String amount = creditCardObject.getString("amount");
-                                String doantor = creditCardObject.getString("donator");
-                                String needer = creditCardObject.getString("needer");
-                                Transaction transaction = new Transaction(id, Float.valueOf(amount), doantor, needer, date);
-                                transactionList.add(transaction);
+                                JSONObject transaction = transactions.getJSONObject(i);
+                                String id = transaction.getString("id");
+                                String date = transaction.getString("date");
+                                String amount = transaction.getString("amount");
+                                String doantor = transaction.getString("donator");
+                                String needer = transaction.getString("needer");
+                                Transaction tran = new Transaction(id, Float.valueOf(amount), doantor, needer, date);
+                                transactionList.add(tran);
                             }
                             transacitonAdapter = new TransacitonAdapter(transactionList);
                             recyclerView.setAdapter(transacitonAdapter);

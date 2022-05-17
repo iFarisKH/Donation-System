@@ -34,13 +34,14 @@ import io.github.ifariskh.donationsystem.core.CreditCard;
 import io.github.ifariskh.donationsystem.core.EndUser;
 import io.github.ifariskh.donationsystem.core.RequestHandler;
 import io.github.ifariskh.donationsystem.core.User;
+import io.github.ifariskh.donationsystem.helper.AddBalanceDialog;
 import io.github.ifariskh.donationsystem.helper.Constant;
 import io.github.ifariskh.donationsystem.helper.CreditCardAdapter;
 import io.github.ifariskh.donationsystem.helper.CreditCardDialog;
 
 public class CreditCardFragment extends Fragment implements View.OnClickListener {
 
-    private Button addCard;
+    private Button addCard, addBalance;
     private TextView balance;
     private RecyclerView recyclerView;
     private CreditCardAdapter creditCardAdapter;
@@ -68,11 +69,13 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_credit_card, container, false);
         initViews(view);
         addCard.setOnClickListener(this);
+        addBalance.setOnClickListener(this);
         return view;
     }
 
     private void initViews(View view) {
         addCard = view.findViewById(R.id.add_card);
+        addBalance = view.findViewById(R.id.add_balance);
         recyclerView = view.findViewById(R.id.credit_card);
         balance = view.findViewById(R.id.balance);
 
@@ -94,7 +97,7 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
-                            balance.setText(jsonObject.getString("balance"));
+                            balance.setText(Double.parseDouble(jsonObject.getString("balance")) + "");
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -173,6 +176,9 @@ public class CreditCardFragment extends Fragment implements View.OnClickListener
         switch (view.getId()) {
             case R.id.add_card:
                 new CreditCardDialog().show(getParentFragmentManager(), "Credit Card Dialog");
+                break;
+            case R.id.add_balance:
+                new AddBalanceDialog().show(getParentFragmentManager(), "Add Balance Dialog");
                 break;
         }
     }

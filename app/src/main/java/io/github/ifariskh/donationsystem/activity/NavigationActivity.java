@@ -9,6 +9,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import io.github.ifariskh.donationsystem.R;
+import io.github.ifariskh.donationsystem.core.EndUser;
 import io.github.ifariskh.donationsystem.fragment.CreditCardFragment;
 import io.github.ifariskh.donationsystem.fragment.HomeFragment;
 import io.github.ifariskh.donationsystem.fragment.SearchFragment;
@@ -58,7 +59,10 @@ public class NavigationActivity extends AppCompatActivity {
         });
 
         floatingActionButton.setOnClickListener(view -> {
+            if (EndUser.TYPE.equalsIgnoreCase("Needer")) return;
             new QuickPayDialog().show(getSupportFragmentManager(), "Quick Pay Dialog");
+            finish();
+            startActivity(getIntent());
         });
     }
 

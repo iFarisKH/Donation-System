@@ -17,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.json.JSONException;
@@ -24,19 +25,23 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import io.github.ifariskh.donationsystem.R;
 import io.github.ifariskh.donationsystem.core.EndUser;
 import io.github.ifariskh.donationsystem.core.RequestHandler;
 import io.github.ifariskh.donationsystem.core.User;
 import io.github.ifariskh.donationsystem.helper.Constant;
+import io.github.ifariskh.donationsystem.helper.QuickPayDialog;
+import io.github.ifariskh.donationsystem.helper.VowelDialog;
 
 public class HomeFragment extends Fragment {
 
-    private TextView name, indicator;
+    private TextView name, indicator, code;
     private ImageView signout;
     private LinearProgressIndicator linearProgressIndicator;
     private int count;
+    private FloatingActionButton vowel;
 
     public HomeFragment() {
     }
@@ -59,9 +64,11 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         name = view.findViewById(R.id.name);
+        code = view.findViewById(R.id.code);
         indicator = view.findViewById(R.id.indicator);
         linearProgressIndicator = view.findViewById(R.id.progress);
         signout = view.findViewById(R.id.sign_out);
+        vowel = view.findViewById(R.id.vowel);
         getCount();
         name.setText(EndUser.Name);
 
@@ -71,6 +78,11 @@ public class HomeFragment extends Fragment {
                 EndUser.logout(getContext());
             }
         });
+
+        vowel.setOnClickListener(view1 -> {
+            new VowelDialog().show(getParentFragmentManager(), "Vowel Dialog");
+        });
+
         return view;
     }
 
@@ -86,6 +98,9 @@ public class HomeFragment extends Fragment {
                             count = jObj.getInt("msg");
                             double max = Math.ceil(count / 10.0);
                             max = max * 10;
+                            if (count >= linearProgressIndicator.getMax()){
+                                generateCode();
+                            }
                             linearProgressIndicator.setMax((int)(max));
                             linearProgressIndicator.setProgress(count);
                             indicator.setText(count +"/" + linearProgressIndicator.getMax());
@@ -93,6 +108,16 @@ public class HomeFragment extends Fragment {
                             e.printStackTrace();
                             Toast.makeText(getContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
+                    }
+
+                    private void generateCode() {
+                        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+                        StringBuilder sb = new StringBuilder();
+                        Random random = new Random();
+                        for (int i = 0; i < 4; i++) {
+                            sb.append(chars.charAt(random.nextInt(chars.length())));
+                        }
+                        code.setText(sb);
                     }
                 }, new Response.ErrorListener() {
             @Override

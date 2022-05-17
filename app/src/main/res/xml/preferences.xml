@@ -11,12 +11,6 @@
         app:allowDividerBelow="true" />
 
     <Preference
-        android:summary="You can here edit your profile"
-        android:title="Edit Profile"
-        app:allowDividerAbove="true"
-        app:allowDividerBelow="true" />
-
-    <Preference
         android:summary="Here you will find your previous \ntransaction"
         android:title="View Transaction"
         app:allowDividerAbove="true"

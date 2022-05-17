@@ -18,6 +18,8 @@ public interface Constant {
     String PAY = "https://ds-dbms.000webhostapp.com/api/Pay.php";
     String UPLOAD = "https://ds-dbms.000webhostapp.com/api/Upload.php";
     String GET_KYC = "https://ds-dbms.000webhostapp.com/api/GetKYC.php";
+    String UPDATE_STATUS = "https://ds-dbms.000webhostapp.com/api/UpdateStatus.php";
+    String ADD_BALANCE = "https://ds-dbms.000webhostapp.com/api/AddBalance.php";
     String GET_COUNT = "https://ds-dbms.000webhostapp.com/api/GetCount.php";
     String VISA = "^4[0-9]{2,12}(?:[0-9]{3})?$";
     String MASTERCARD = "^5[1-5][0-9]{1,14}$";

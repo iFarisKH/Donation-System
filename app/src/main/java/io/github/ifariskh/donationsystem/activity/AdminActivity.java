@@ -73,7 +73,7 @@ public class AdminActivity extends AppCompatActivity {
                                 endUsersList.add(endUser);
                             }
                             // Init Adapter
-                            adminAdapter = new AdminAdapter(endUsersList);
+                            adminAdapter = new AdminAdapter(endUsersList, getApplicationContext());
                             recyclerView.setAdapter(adminAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -90,4 +90,5 @@ public class AdminActivity extends AppCompatActivity {
 
         RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
+
 }
